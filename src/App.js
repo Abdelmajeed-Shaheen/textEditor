@@ -32,10 +32,11 @@ class App extends Component {
       return (
         <button
           onClick={() => this.changeFontStyle(style)}
-          style={{
-            backgroundColor: this.state[style] ? "green" : "gray",
-            height: this.state[style] ? "40px" : "25px"
-          }}
+          className={
+            this.state[style]
+              ? "btn btn-success mr-2"
+              : "btn btn-outline-primary mr-2"
+          }
           key={style}
         >
           {style}
