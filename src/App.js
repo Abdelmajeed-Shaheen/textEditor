@@ -37,6 +37,7 @@ class App extends Component {
               ? "btn btn-success mr-2"
               : "btn btn-outline-primary mr-2"
           }
+          style={styles[style]}
           key={style}
         >
           {style}
