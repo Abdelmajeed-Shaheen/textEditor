@@ -7,30 +7,68 @@ const styles = {
   underline: { textDecorationLine: "underline" }
 };
 
-const stylings = ["bold", "italic", "underline"];
-
-const colors = ["yellow", "blue", "red", "black", "purple"];
-
 class App extends Component {
-  render() {
-    const stylingBoxes = stylings.map(style => (
-      <button className="btn btn-light" style={styles[style]} key={style}>
-        {style}
-      </button>
-    ));
+  state = {
+    fontcolor: "black",
+    bold: false,
+    italic: false,
+    underline: false
+  };
 
-    const colorBoxes = colors.map(color => (
-      <button
-        style={{ backgroundColor: color, height: 30, width: 30 }}
-        key={color}
-      />
-    ));
+  changeFontColor = color => {
+    this.setState({ fontcolor: color });
+  };
+
+  changeFontStyle = style => {
+    const statevalue = !this.state[style];
+    this.setState({ [style]: statevalue });
+  };
+
+  render() {
+    const stylings = ["bold", "italic", "underline"];
+    const colors = ["yellow", "blue", "red", "black", "purple"];
+    const buttonStuling = [];
+    const stylingBoxes = stylings.map(style => {
+      return (
+        <button
+          onClick={() => this.changeFontStyle(style)}
+          style={{
+            backgroundColor: this.state[style] ? "green" : "gray",
+            height: this.state[style] ? "40px" : "25px"
+          }}
+          key={style}
+        >
+          {style}
+        </button>
+      );
+    });
+
+    const colorBoxes = colors.map(color => {
+      return (
+        <button
+          onClick={() => this.changeFontColor(color)}
+          style={{ backgroundColor: color, height: 30, width: 30 }}
+          key={color}
+        />
+      );
+    });
 
     return (
       <div className="App">
-        <div className="my-3">{stylingBoxes}</div>
-        <textarea />
-        <div className="my-3">{colorBoxes}</div>
+        <br />
+        {stylingBoxes}
+        <br />
+        <br />
+        <textarea
+          style={{
+            color: this.state.fontcolor,
+            fontWeight: this.state.bold && "bold",
+            fontStyle: this.state.italic && "italic",
+            textDecorationLine: this.state.underline && "underline"
+          }}
+        />
+        <br />
+        {colorBoxes}
       </div>
     );
   }
